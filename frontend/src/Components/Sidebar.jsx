@@ -18,7 +18,7 @@ const Sidebar = () => {
 
         <div className="w-full  mt-3">
           <ul className="gap-3 flex flex-col">
-            <li className="menuitems flex gap-3 px-3 py-2  rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue">
+            <li className="menuitems flex gap-3 px-3 py-2  rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -36,7 +36,7 @@ const Sidebar = () => {
               <span>Home</span>
             </li>
 
-            <li className="menuitems flex gap-3 px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue">
+            <li className="menuitems flex gap-3 px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
