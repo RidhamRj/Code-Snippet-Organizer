@@ -1,25 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
-  const [folders, setFolders] = useState([]);
-  const [folderCount, setFolderCount] = useState(1);
-
-  const createNewFolder = () => {
-    setFolders([...folders, `New Folder ${folderCount}`]);
-    setFolderCount(folderCount + 1);
-  };
-
   return (
     <nav className="shadow-md h-screen w-72 p-2 bg-customGray font-Montserrat text-customWhite flex flex-col justify-between">
       <div className="profile_display p-3 w-full">
         <div className="flex justify-start items-center gap-5 w-full">
           <div className="">
-            <img
-              className="rounded-lg"
-              src="src/assets/Profile.jpg"
-              alt="profile picture"
-            />
+            <img className="rounded-lg" src="src/assets/Profile.jpg" alt="profile picture" />
           </div>
 
           <div className="">
@@ -102,7 +89,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="logout w-full text-lg flex p-5 gap-2 item-center font-Montserrat cursor-default">
+      <div className="logout w-fit text-lg flex m-3 p-2 pr-3 gap-2 cursor-pointer item-center font-Montserrat">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
