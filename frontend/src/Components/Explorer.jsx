@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Explorer() {
+  const [folders, setFolders] = useState([]);
+  const [folderCount, setFolderCount] = useState(1);
+  const [editingFolderIndex, setEditingFolderIndex] = useState(null);
+  const [newFolderName, setNewFolderName] = useState("");
+
+  const createNewFolder = () => {
+    setFolders([...folders, `New Folder ${folderCount}`]);
+    setFolderCount(folderCount + 1);
+  };
+
+  const removeFolder = (index) => {
+    setFolders(folders.filter((_, i) => i !== index));
+  };
+
+  const editFolder = (index) => {
+    setEditingFolderIndex(index);
+    setNewFolderName(folders[index]);
+  };
+
+  const saveFolder = (index) => {
+    const updatedFolders = [...folders];
+    updatedFolders[index] = newFolderName;
+    setFolders(updatedFolders);
+    setEditingFolderIndex(null);
+  };
+
   return (
     <div className="w-full  mt-3">
       <ul className="gap-3 flex flex-col">
@@ -39,7 +65,35 @@ function Explorer() {
           </svg>
           <span>Current Snippets</span>
         </li>
-        <li className="menuitems flex gap-3 space-x-16 px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
+        <div className="mt-4 max-h-48 overflow-y-auto px-2 scrollbar cursor-pointer">
+          {folders.length > 0 && (
+            <div className="text-customWhite">
+              <h4 className="mb-2">Folders:</h4>
+              <ul>
+                {folders.map((folder, index) => (
+                  <li
+                    key={index}
+                    className="relative py-1 px-3 bg-customGray2 mb-2 rounded-lg flex justify-between"
+                  >
+                    {editingFolderIndex === index ? (
+                      <input
+                        value={newFolderName}
+                        onChange={(e) => setNewFolderName(e.target.value)}
+                        className="text-customWhite bg-customGray2 rounded-lg px-2"
+                      />
+                    ) : (
+                      <span>{folder}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <li
+          onClick={createNewFolder}
+          className="menuitems flex gap-3 space-x-16 px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray"
+        >
           <div className="flex gap-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
