@@ -1,12 +1,16 @@
 import { useState } from 'react'
-import Sidebar from './components/Sidebar'
-
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import Workspace from './pages/workspace'
 
 function App() {
 
   return (
     <>
-    <Sidebar/>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/workspace' element={<Workspace/>} />
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(true);
   return (
     <nav className="shadow-md h-screen w-72 p-2 bg-customGray font-Montserrat text-customWhite flex flex-col justify-between">
       <div className="profile_display p-3 w-full">
@@ -90,7 +89,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="logout w-full text-lg flex p-5 gap-2 item-center font-Montserrat">
+      <div className="logout w-fit text-lg flex m-3 p-2 pr-3 gap-2 cursor-pointer item-center font-Montserrat">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
