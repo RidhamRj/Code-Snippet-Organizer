@@ -1,9 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function landingPage() {
+function LandingPage() {
   return (
-    <div></div>
+    <div>
+      <Link to={'/workspace'}>
+        Workspace
+      </Link>
+    </div>
   )
 }
 
-export default landingPage
+export default LandingPage
