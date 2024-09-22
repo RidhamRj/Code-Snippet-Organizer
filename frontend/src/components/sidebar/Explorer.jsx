@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-
+import PopUpModal from "../hero/popup/NewFolderModel";
 function Explorer() {
   const [folders, setFolders] = useState([]);
   const [folderCount, setFolderCount] = useState(1);
   const [editingFolderIndex, setEditingFolderIndex] = useState(null);
   const [newFolderName, setNewFolderName] = useState("");
   const [dropdown, setDropdown] = useState(null);
-
+  const [popUpModal, setShow] = React.useState(false);
+  const handleClose = () => setShow(false);
   const createNewFolder = () => {
     setFolders([...folders, `New Folder ${folderCount}`]);
     setFolderCount(folderCount + 1);
@@ -27,6 +28,7 @@ function Explorer() {
     updatedFolders[index] = newFolderName;
     setFolders(updatedFolders);
     setEditingFolderIndex(null);
+    handleClose()
   };
 
   const toggleDropdown = (index) => {
@@ -178,11 +180,13 @@ function Explorer() {
           )}
         </div>
         <li
-          onClick={createNewFolder}
+          onClick={() => {
+            setShow(true);
+          }}
           className="menuitems flex gap-3 space-x-16 w-full px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray"
         >
           <div className="flex gap-3">
-            <svg 
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -196,7 +200,7 @@ function Explorer() {
                 d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
               />
             </svg>
-            <span  className="">Create New</span>
+            <span className="">Create New</span>
           </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -214,6 +218,7 @@ function Explorer() {
           </svg>
         </li>
       </ul>
+      <PopUpModal onContinue={createNewFolder} onClose={handleClose} visible={popUpModal} />
     </div>
   );
 }
