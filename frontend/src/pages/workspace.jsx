@@ -1,10 +1,11 @@
-import Sidebar from "../components/Sidebar";
+import HeroSec from "../components/hero/HeroSec";
+import Sidebar from "../components/sidebar/Sidebar";
 
 function Workspace() {
   return (
-    <div>
+    <div className="flex">
       <Sidebar />
-      
+      <HeroSec />
     </div>
   );
 }
