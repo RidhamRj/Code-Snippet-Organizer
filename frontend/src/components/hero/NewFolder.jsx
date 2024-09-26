@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import HeaderButton from "./HeaderButton";
 import PopUpModal from "./popup/NewFolderModel";
+import { FolderContext } from "../../context/AddFolderContext";
 
 function NewFolder() {
+  const {folders,setFolders,folderCount,setFolderCount}=useContext(FolderContext)
+  const createNewFolder = () => {
+    setFolders([...folders, `New Folder ${folderCount}`]);
+    setFolderCount(folderCount + 1);
+  };
   const [popUpModal, setShow] = React.useState(false);
   const handleClose = () => setShow(false);
   return (
     <div className="static">
-      <PopUpModal onClose={handleClose} visible={popUpModal} />
+      <PopUpModal onContinue={createNewFolder} onClose={handleClose} visible={popUpModal} />
       <div
         onClick={() => {
           setShow(true);

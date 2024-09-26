@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PopUpModal from "../hero/popup/NewFolderModel";
+import { FolderContext } from "../../context/AddFolderContext";
 function Explorer() {
-  const [folders, setFolders] = useState([]);
-  const [folderCount, setFolderCount] = useState(1);
+  const {folders,setFolders,folderCount,setFolderCount}=useContext(FolderContext)
+  // const [folders, setFolders] = useState([]);
+  // const [folderCount, setFolderCount] = useState(1);
   const [editingFolderIndex, setEditingFolderIndex] = useState(null);
   const [newFolderName, setNewFolderName] = useState("");
   const [dropdown, setDropdown] = useState(null);
-  const [popUpModal, setShow] = React.useState(false);
+  const [popUpModal, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const createNewFolder = () => {
     setFolders([...folders, `New Folder ${folderCount}`]);
