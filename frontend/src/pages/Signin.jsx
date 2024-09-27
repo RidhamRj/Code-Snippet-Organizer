@@ -2,17 +2,15 @@ import React from "react";
 import Navbar from "../components/landing page/Navbar";
 import { Link } from "react-router-dom";
 
-function Signup() {
+function Signin() {
   return (
     <>
       <Navbar />
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="w-full max-w-md p-8 space-y-8 bg-gray-800 rounded-xl shadow-2xl">
           <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-blue-400">Sign Up</h2>
-            <p className="mt-2 text-sm text-gray-400">
-              Join us today and start your journey
-            </p>
+            <h2 className="text-3xl font-extrabold text-blue-400">Sign In</h2>
+            <p className="mt-2 text-sm text-gray-400">Welcome back!</p>
           </div>
           <form className="space-y-6">
             <div>
@@ -44,14 +42,13 @@ function Signup() {
               />
             </div>
             <div className="flex items-center justify-center">
-              
               <div className="text-sm">
-                <Link to={"/signin"}>
+                <Link to={"/signup"}>
                   <a
                     href="#"
                     className="font-medium text-blue-400 hover:text-blue-300"
                   >
-                    Already a member?
+                    Sign Up
                   </a>
                 </Link>
               </div>
@@ -61,7 +58,7 @@ function Signup() {
                 className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 type="submit"
               >
-                Sign Up
+                Sign In
               </button>
             </div>
           </form>
@@ -74,4 +71,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;
