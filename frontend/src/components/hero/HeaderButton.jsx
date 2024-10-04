@@ -2,7 +2,7 @@ import React from 'react'
 
 function HeaderButton(props) {
   return (
-    <div className="h-[17vh] cursor-pointer w-[19vw] p-5 relative border-solid border-[#575757] border-[1px] rounded-xl flex flex-col gap-5">
+    <div className="h-[17vh] cursor-pointer w-[21vw] p-5 relative border-solid border-[#575757] border-[1px] rounded-xl flex flex-col gap-5">
       <span className="">
         {props.svg}
       </span>

@@ -27,7 +27,7 @@ function Header() {
         </div> */}
 
       </div>
-      <div className="functions flex gap-24 ">
+      <div className="functions flex gap-16 ">
         <NewFolder/>
         <NewSnip/>
         <ExportSnip/>

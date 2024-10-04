@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import PopUpModal from "../hero/popup/NewFolderModel";
 import { FolderContext } from "../../context/AddFolderContext";
 function Explorer() {
-  const {folders,setFolders,folderCount,setFolderCount}=useContext(FolderContext)
+  const { folders, setFolders, folderCount, setFolderCount } =
+    useContext(FolderContext);
   // const [folders, setFolders] = useState([]);
   // const [folderCount, setFolderCount] = useState(1);
   const [editingFolderIndex, setEditingFolderIndex] = useState(null);
@@ -17,6 +18,7 @@ function Explorer() {
 
   const removeFolder = (index) => {
     setFolders(folders.filter((_, i) => i !== index));
+    setDropdown(null);
   };
 
   const editFolder = (index) => {
@@ -30,7 +32,7 @@ function Explorer() {
     updatedFolders[index] = newFolderName;
     setFolders(updatedFolders);
     setEditingFolderIndex(null);
-    handleClose()
+    handleClose();
   };
 
   const toggleDropdown = (index) => {
@@ -38,7 +40,7 @@ function Explorer() {
   };
 
   return (
-    <div className="w-full  mt-3">
+    <div className="w-full  mt-3 relative overflow-hidden">
       <ul className="gap-3 flex flex-col">
         <li className="menuitems flex gap-3 px-3 py-2  rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
           <svg
@@ -75,14 +77,14 @@ function Explorer() {
           </svg>
           <span>Current Snippets</span>
         </li>
-        <div className="mt-4 max-h-48 overflow-y-auto px-2 scrollbar cursor-pointer">
+        <div className="mt-4 max-h-48  overflow-y-auto px-2 scrollbar cursor-pointer">
           {folders.length > 0 && (
             <div className="text-customWhite">
               <ul>
                 {folders.map((folder, index) => (
                   <li
                     key={index}
-                    className="relative py-1 px-3  mb-2 flex justify-between"
+                    className=" py-1 px-3  mb-2 flex justify-between"
                   >
                     {editingFolderIndex === index ? (
                       <div className="flex gap-2">
@@ -114,7 +116,23 @@ function Explorer() {
                     ) : (
                       <span>{folder}</span>
                     )}
-                    <div>
+                    {/* <svg
+                      width="16"
+                      height="9"
+                      viewBox="0 0 16 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.5 1.29167L8 7.79167L1.5 1.29167"
+                        stroke="#DDDFEF"
+                        stroke-width="1.6"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg> */}
+
+                    <div className="">
                       <svg
                         onClick={() => toggleDropdown(index)}
                         xmlns="http://www.w3.org/2000/svg"
@@ -131,8 +149,8 @@ function Explorer() {
                         />
                       </svg>
                       {dropdown === index && (
-                        <div className="absolute right-0 mt-1 w-32 bg-customBlack rounded-lg shadow-lg z-10">
-                          <ul>
+                        <div className="absolute right-0 mt-1 w-32 bg-customBlack rounded-lg shadow-lg z-40">
+                          <ul className="">
                             <li
                               onClick={() => editFolder(index)}
                               className="cursor-pointer rounded-lg py-2 px-3 hover:bg-customBlue"
@@ -185,7 +203,7 @@ function Explorer() {
           onClick={() => {
             setShow(true);
           }}
-          className="menuitems flex gap-3 space-x-16 w-full px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray"
+          className="menuitems flex gap-3 z-20 space-x-16 w-full px-3 py-2 hover rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray"
         >
           <div className="flex gap-3">
             <svg
@@ -220,7 +238,11 @@ function Explorer() {
           </svg>
         </li>
       </ul>
-      <PopUpModal onContinue={createNewFolder} onClose={handleClose} visible={popUpModal} />
+      <PopUpModal
+        onContinue={createNewFolder}
+        onClose={handleClose}
+        visible={popUpModal}
+      />
     </div>
   );
 }
