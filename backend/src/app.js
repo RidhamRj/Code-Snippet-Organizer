@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
+var cors = require("cors");
 const mongoose = require("mongoose");
-const user = require("./models/user");
 
 const login = require("./routes/auth/login");
 const register = require("./routes/auth/register");
+const auth = require("./middleware/auth");
+const snippet = require("./routes/snippets");
 
 const app = express();
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 
 mongoose.connect(process.env.DATABASE_URL)
@@ -20,6 +23,8 @@ app.get("/", (req, res) => {
 app.use("/login", login);
 app.use("/register", register);
 
+app.use("/snippet", auth, snippet);
+
 app.listen(process.env.SERVER_PORT, () => {
-    console.log("Server started");
+    console.log("Server online");
 });

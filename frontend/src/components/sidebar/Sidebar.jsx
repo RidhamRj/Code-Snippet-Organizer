@@ -7,7 +7,6 @@ const Sidebar = () => {
     <nav className="shadow-md h-screen w-[16vw] p-2 bg-customGray font-Montserrat text-customWhite flex flex-col justify-between">
       <div className="profile_display p-3 w-full">
         <Profile/>
-
         <Explorer/>
       </div>
 
@@ -28,7 +27,7 @@ const Sidebar = () => {
         </svg>
 
         <span>Logout</span>
-      </div>
+      </div> 
     </nav>
   );
 };

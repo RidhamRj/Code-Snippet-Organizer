@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const objectId = mongoose.objectId;
 
 const Snippet = new mongoose.Schema({
     title: {
@@ -10,7 +9,7 @@ const Snippet = new mongoose.Schema({
         type: Object,
     },
     folder: {
-        type: objectId,
+        type: String,
     },
     text: {
         type: Object,

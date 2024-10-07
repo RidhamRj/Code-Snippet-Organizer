@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-export default function NewFolder({ visible, onClose,onContinue }) {
+export default function NewFile({ visible, onClose,onContinue }) {
   if (!visible) return null;
 
   const handleClose = (e) => {
@@ -24,7 +24,7 @@ export default function NewFolder({ visible, onClose,onContinue }) {
           <div className="bg-heroBlack relative shadow-2xl	h-screen w-screen max-h-[40vh] max-w-[35vw] border-[1px] border-[#272727] rounded-2xl ">
             <div className="pop-up-head p-10 relative flex flex-col gap-10 w-full items-center  ">
               <div className="flex flex-col w-full gap-2">
-                <h2 className="text-2xl font-bold">Create a New Folder</h2>
+                <h2 className="text-2xl font-bold">Create a New File</h2>
                 <p className="text-xs text-[#abaaaa]">
                   Specify the framework or language you’ll be using{" "}
                 </p>
