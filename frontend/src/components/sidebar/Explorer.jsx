@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import PopUpModal from "../hero/popup/NewFolderModel";
 import { FolderContext } from "../../context/AddFolderContext";
+import { EditorContext } from "../../context/EditorContext";
 function Explorer() {
   const {
     folders,
@@ -12,34 +13,42 @@ function Explorer() {
     fileCount,
     setFileCount,
   } = useContext(FolderContext);
+  const {
+    activeFile,
+    setActiveFile
+  } = useContext(EditorContext);
   // const [folders, setFolders] = useState([]);
   // const [folderCount, setFolderCount] = useState(1);
   const [editingFolderIndex, setEditingFolderIndex] = useState(null);
+  const [editingFileIndex, setEditingFileIndex] = useState(null);
   const [newFolderName, setNewFolderName] = useState("");
   const [newFileName, setNewFileName] = useState("");
-  const [dropdown, setDropdown] = useState(null);
+  const [fileDropdown, setFileDropdown] = useState(null);
+  const [folderDropdown, setFolderDropdown] = useState(null);
   const [popUpModal, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const createNewFolder = () => {
-    setFolders([...folders, `New Folder ${folderCount}`]);
+  const createNewFolder = (e) => {
+    setFolders([...folders, e]);
     setFolderCount(folderCount + 1);
   };
   const createNewFile = () => {
-    setFiles([...files, `New Folder ${fileCount}`]);
+    setFiles([...files, `New File ${fileCount}`]);
     setFileCount(fileCount + 1);
   };
 
   const removeFolder = (index) => {
     setFolders(folders.filter((_, i) => i !== index));
-    setDropdown(null);
+    setFolderDropdown(null);
   };
 
   const editFolder = (index) => {
     setEditingFolderIndex(index);
     setNewFolderName(folders[index]);
-    setDropdown(null);
+    setFolderDropdown(null);
   };
-
+  const home=()=>{
+    setActiveFile([])
+  }
   const saveFolder = (index) => {
     const updatedFolders = [...folders];
     updatedFolders[index] = newFolderName;
@@ -47,15 +56,43 @@ function Explorer() {
     setEditingFolderIndex(null);
     handleClose();
   };
+  const removeFile = (index) => {
+    setFiles(files.filter((_, i) => i !== index));
+    setFileDropdown(null);
+  };
+  const activateFile=(index)=>{
+    const elem=activeFile.find((element)=>element==files[index])
+    // const activeFileName=!elem?files[index]: [];
+    if (!elem){
+       var activeFileName=files[index]
+       setActiveFile([...activeFile,activeFileName])
+    }
+  }
+  const editFile = (index) => {
+    setEditingFileIndex(index);
+    setNewFileName(files[index]);
+    setFileDropdown(null);
+  };
 
-  const toggleDropdown = (index) => {
-    setDropdown(dropdown === index ? null : index);
+  const saveFile = (index) => {
+    const updatedFiles = [...files];
+    updatedFiles[index] = newFileName;
+    setFiles(updatedFiles);
+    setEditingFileIndex(null);
+    handleClose();
+  };
+
+  const toggleFileDropdown = (index) => {
+    setFileDropdown(fileDropdown === index ? null : index);
+  };
+  const toggleFolderDropdown = (index) => {
+    setFolderDropdown(folderDropdown === index ? null : index);
   };
 
   return (
     <div className="w-full  mt-3 relative overflow-hidden">
       <ul className="gap-3 flex flex-col">
-        <li className="menuitems flex gap-3 px-3 py-2  rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
+        <li onClick={home} className="menuitems flex gap-3 px-3 py-2  rounded-lg cursor-pointer bg-customGray2 hover:bg-customBlue active:bg-customGray">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -147,7 +184,7 @@ function Explorer() {
 
                     <div className="">
                       <svg
-                        onClick={() => toggleDropdown(folderIndex)}
+                        onClick={() => toggleFolderDropdown(folderIndex)}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -161,12 +198,13 @@ function Explorer() {
                           d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
                         />
                       </svg>
-                      {dropdown === folderIndex && (
+                      {folderDropdown === folderIndex && (
                         <div className="absolute right-0 mt-1 w-32 bg-customBlack rounded-lg shadow-lg z-40">
+                          
                           <ul className="">
                             <li
                               onClick={() => editFolder(folderIndex)}
-                              className="cursor-pointer rounded-lg py-2 px-3 hover:bg-customBlue"
+                              className="cursor-pointer flex   items-center justify-around rounded-lg py-2 px-3 hover:bg-customBlue"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -182,10 +220,11 @@ function Explorer() {
                                   d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
                                 />
                               </svg>
+                              Edit
                             </li>
                             <li
                               onClick={() => removeFolder(folderIndex)}
-                              className="cursor-pointer rounded-lg py-2 px-3 hover:bg-customBlue"
+                              className="cursor-pointer flex items-center justify-around rounded-lg py-2 px-3 hover:bg-customBlue"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -201,6 +240,7 @@ function Explorer() {
                                   d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
                                 />
                               </svg>
+                              Delete
                             </li>
                           </ul>
                         </div>
@@ -219,17 +259,18 @@ function Explorer() {
                 {files.map((file, index) => (
                   <li
                     key={index}
+                    onClick={()=>activateFile(index)}
                     className=" py-1 px-3  mb-2 flex justify-between"
                   >
-                    {editingFolderIndex === index ? (
+                    {editingFileIndex === index ? (
                       <div className="flex gap-2">
                         <input
-                          value={newFolderName}
-                          onChange={(e) => setNewFolderName(e.target.value)}
+                          value={newFileName}
+                          onChange={(e) => setNewFileName(e.target.value)}
                           className="text-customWhite bg-customGray2 px-2 w-3/4"
                         />
                         <button
-                          onClick={() => saveFolder(index)}
+                          onClick={() => saveFile(index)}
                           className="bg-customGray2 text-customWhite px-2 py-1 w-1/4 rounded-lg hover:bg-customBlue"
                         >
                           <svg
@@ -269,7 +310,7 @@ function Explorer() {
 
                     <div className="">
                       <svg
-                        onClick={() => toggleDropdown(index)}
+                        onClick={() => toggleFileDropdown(index)}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -283,11 +324,11 @@ function Explorer() {
                           d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
                         />
                       </svg>
-                      {dropdown === index && (
+                      {fileDropdown === index && (
                         <div className="absolute right-0 mt-1 w-32 bg-customBlack rounded-lg shadow-lg z-40">
                           <ul className="">
                             <li
-                              onClick={() => editFolder(index)}
+                              onClick={() => editFile(index)}
                               className="cursor-pointer rounded-lg py-2 px-3 hover:bg-customBlue"
                             >
                               <svg
@@ -306,7 +347,7 @@ function Explorer() {
                               </svg>
                             </li>
                             <li
-                              onClick={() => removeFolder(index)}
+                              onClick={() => removeFile(index)}
                               className="cursor-pointer rounded-lg py-2 px-3 hover:bg-customBlue"
                             >
                               <svg

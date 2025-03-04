@@ -30,7 +30,7 @@ export default function NewFolder({ visible, onClose,onContinue }) {
                 </p>
                 <input
                   type="text"
-                  maxLength={20}
+                  maxLength={20}  
                   placeholder="Folder Name"
                   className="bg-transparent text-[#e2dede] mt-4 text-xs border-[#575757] border-[0.2px] rounded-sm p-2 w-full px-3 "
                 />
